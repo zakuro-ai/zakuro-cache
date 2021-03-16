@@ -22,10 +22,20 @@ At a granular level, synskit is a library that consists of the following compone
 
 ## Installation
 
-## Docker
+### Docker
 To build the image with docker-compose
 ```
 sh docker.sh
+```
+
+### Local
+```
+python setup.py install
+```
+## Performances
+If you are in local env you can run:
+```
+python demo.py
 ```
 
 You should be able to execute a benchmark:
@@ -40,10 +50,6 @@ You should be able to execute a benchmark:
 496inputs+128outputs (3major+2491minor)pagefaults 0swaps
 ```
 
-## Local
-```
-python setup.py install
-```
 
 ## Getting-started
 To apply the cache simply add the decorator to your functions.

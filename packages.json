@@ -1,0 +1,5 @@
+[
+    "zakuro_cache",
+    "zakuro_cache.decorators",
+    "zakuro_cache.loggers"
+]

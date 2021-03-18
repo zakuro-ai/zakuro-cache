@@ -18,7 +18,7 @@ At a granular level, synskit is a library that consists of the following compone
 | ---- | --- |
 | **zakuro_cache** | Contains the implementation of the caching sytem. |
 | **zakuro_cache.loggers** | Keep the print into an array during the fuction execution. |
-| **zakuro_cache.decorators** | Pipeline to execute and store.|
+| **zakuro_cache.caching** | Pipeline to execute and store.|
 
 ## Installation
 
@@ -54,9 +54,9 @@ You should be able to execute a benchmark:
 ## Getting-started
 To apply the cache simply add the decorator to your functions.
 ```python
-from zakuro_cache.decorators import zakuro_cache
+from zakuro_cache.caching import memorize
 
-@zakuro_cache
+@memorize
 def recur_fibo(n):
     if n <= 1:
         return n

@@ -1,8 +1,8 @@
-from zakuro_cache.decorators import zakuro_cache
+from zakuro_cache.caching import memorize
 import argparse
 
 
-@zakuro_cache
+@memorize
 def recur_fibo(n):
     return core(n, recur_fibo)
 

@@ -1,16 +1,3 @@
-class ZakuroCache:
-    def __init__(self):
-        super(ZakuroCache, self).__init__()
-        self.cache = {}
+__version__ = "0.0.1"
+from .zakuro_cache import ZakuroCache
 
-    def set(self, hash, result):
-        self.cache[hash] = {"result": result,  "logs": []}
-
-    def set_logger(self, hash, logs):
-        self.cache[hash]["logs"] = logs
-
-    def get(self, hash):
-        return list(self.cache[hash].values())
-
-
-cache = ZakuroCache()

@@ -1,8 +1,17 @@
 import json
 import hashlib
 from zakuro_cache.loggers import Capturing
-from zakuro_cache import cache
-def zakuro_cache(func):
+from zakuro_cache import ZakuroCache
+cache = ZakuroCache()
+
+
+def exec(hash, func, args, kwargs):
+    with Capturing() as logger:
+        cache.set(hash, func(*args, **kwargs))
+        cache.set_logger(hash, logger)
+
+
+def memorize(func):
     """
 
     :param fcn:
@@ -16,14 +25,7 @@ def zakuro_cache(func):
         try:
             cache.get(hash)
         except:
-            commands = [
-                "with Capturing() as logger: " \
-                f"    cache.set(hash, func(*args, **kwargs));" \
-                f"    cache.set_logger(hash, logger)"
-            ]
-            for command in commands:
-                exec(command)
-
+            exec(hash, func, args, kwargs)
         finally:
             result, logs = cache.get(hash)
             if len(logs)>0:

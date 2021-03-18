@@ -3,7 +3,7 @@
 --------------------------------------------------------------------------------
 
 ZakuroCache is a Python package that provides two high-level features:
-- A simple decorator to identify the functions you want to cache.
+- A simple decorator to identify the pure functions you want to cache.
 - A caching system that never repeat twice the same execution and return a cached result instead. 
 
 

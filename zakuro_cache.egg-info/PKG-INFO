@@ -1,0 +1,13 @@
+Metadata-Version: 1.2
+Name: zakuro-cache
+Version: 0.0.1
+Summary: Zakuro module used to keep python scripts execution logs and results in a cached memory.
+Home-page: https://zakuro.ai
+Author: ZakuroAI
+Author-email: info@zakuro.ai
+License: ZakuroAI
+Description: Zakuro module used to keep python scripts execution logs and results in a cached memory.
+Platform: linux_debian_10_x86_64
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: ZakuroAI License
+Requires-Python: >=3.6

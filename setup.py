@@ -16,7 +16,7 @@ setup(
     description='Zakuro module used to keep python scripts execution logs and results in a cached memory.',
     platforms="linux_debian_10_x86_64",
     classifiers=[
-        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3",
         "License :: OSI Approved :: ZakuroAI License",
     ]
 )

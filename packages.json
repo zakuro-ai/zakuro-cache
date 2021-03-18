@@ -1,5 +1,5 @@
 [
     "zakuro_cache",
-    "zakuro_cache.caching",
+    "zakuro_cache.function",
     "zakuro_cache.loggers"
 ]

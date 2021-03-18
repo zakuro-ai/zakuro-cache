@@ -18,7 +18,7 @@ At a granular level, synskit is a library that consists of the following compone
 | ---- | --- |
 | **zakuro_cache** | Contains the implementation of the caching sytem. |
 | **zakuro_cache.loggers** | Keep the print into an array during the fuction execution. |
-| **zakuro_cache.caching** | Pipeline to execute and store.|
+| **zakuro_cache.function** | Pipeline to execute and store.|
 
 ## Installation
 

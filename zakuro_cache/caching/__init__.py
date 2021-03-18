@@ -11,7 +11,7 @@ def exec(hash, func, args, kwargs):
         cache.set_logger(hash, logger)
 
 
-def memorize(func):
+def deterministic(func):
     """
 
     :param fcn:

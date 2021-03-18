@@ -54,9 +54,9 @@ You should be able to execute a benchmark:
 ## Getting-started
 To apply the cache simply add the decorator to your functions.
 ```python
-from zakuro_cache.caching import memorize
+from zakuro_cache.caching import deterministic
 
-@memorize
+@deterministic
 def recur_fibo(n):
     if n <= 1:
         return n

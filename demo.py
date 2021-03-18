@@ -1,8 +1,8 @@
-from zakuro_cache.caching import memorize
+from zakuro_cache.caching import deterministic
 import argparse
 
 
-@memorize
+@deterministic
 def recur_fibo(n):
     return core(n, recur_fibo)
 

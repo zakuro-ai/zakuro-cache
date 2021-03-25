@@ -1,4 +1,4 @@
-![Synskit Logo](imgs/zakuro.png)
+![zakuro Logo](imgs/zakuro.png)
 
 --------------------------------------------------------------------------------
 
@@ -12,7 +12,7 @@ You can reuse your favorite Python packages such as NumPy, SciPy and Cython to e
 
 ## ZakuroCache modules
 
-At a granular level, synskit is a library that consists of the following components:
+At a granular level, ZakuroCache is a library that consists of the following components:
 
 | Component | Description |
 | ---- | --- |

@@ -1,0 +1,40 @@
+version: '3'
+
+tasks:
+  build:
+    desc: Build the Python package
+    preconditions:
+      - sh: command -v python
+        msg: "python is required but not installed"
+    cmds:
+      - python setup.py sdist bdist_wheel
+
+  install:
+    desc: Install the package via setup.py
+    preconditions:
+      - sh: command -v python
+        msg: "python is required but not installed"
+    cmds:
+      - python setup.py install
+
+  install-dev:
+    desc: Install the package in development mode
+    preconditions:
+      - sh: command -v pip
+        msg: "pip is required but not installed"
+    cmds:
+      - pip install -e .
+
+  deps:
+    desc: Install Python dependencies from requirements.txt
+    preconditions:
+      - sh: command -v pip
+        msg: "pip is required but not installed"
+    cmds:
+      - pip install -r requirements.txt
+
+  clean:
+    desc: Remove Python build artifacts
+    cmds:
+      - rm -rf build/ dist/ *.egg-info
+      - find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true

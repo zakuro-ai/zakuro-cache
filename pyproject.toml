@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "zakuro_cache"
+dynamic = ["version"]
+description = "Zakuro module used to keep python scripts execution logs and results in a cached memory."
+readme = "README.md"
+license = "LicenseRef-ZakuroAI"
+requires-python = ">=3.6"
+authors = [
+    { name = "ZakuroAI", email = "info@zakuro-ai.com" },
+]
+classifiers = [
+    "Programming Language :: Python :: 3.6",
+]
+dependencies = [
+    "py-json",
+]
+
+[project.urls]
+Homepage = "https://zakuro-ai.com"
+
+[tool.hatch.version]
+path = "zakuro_cache/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["zakuro_cache"]
+
+[dependency-groups]
+dev = [
+    "pre-commit",
+    "isort",
+    "black",
+    "nbstripout",
+]
+
+[tool.isort]
+profile = "black"

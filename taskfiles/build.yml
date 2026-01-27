@@ -1,0 +1,38 @@
+version: '3'
+
+vars:
+  DIST_DIR: '{{.ROOT_DIR}}/dist'
+
+tasks:
+  wheel:
+    desc: Build wheel distribution with uv
+    preconditions:
+      - sh: command -v uv
+        msg: "uv is required but not installed. Install with: curl -LsSf https://astral.sh/uv/install.sh | sh"
+      - sh: test -f pyproject.toml
+        msg: "pyproject.toml not found. Run /pygrade to migrate your setup.py first."
+    cmds:
+      - mkdir -p {{.DIST_DIR}}
+      - uv build --wheel --out-dir {{.DIST_DIR}}
+
+  sdist:
+    desc: Build source distribution with uv
+    preconditions:
+      - sh: command -v uv
+        msg: "uv is required but not installed. Install with: curl -LsSf https://astral.sh/uv/install.sh | sh"
+      - sh: test -f pyproject.toml
+        msg: "pyproject.toml not found. Run /pygrade to migrate your setup.py first."
+    cmds:
+      - mkdir -p {{.DIST_DIR}}
+      - uv build --sdist --out-dir {{.DIST_DIR}}
+
+  all:
+    desc: Build wheel and source distribution
+    deps:
+      - wheel
+      - sdist
+
+  clean:
+    desc: Remove dist directory
+    cmds:
+      - rm -rf {{.DIST_DIR}}

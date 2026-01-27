@@ -1,0 +1,75 @@
+version: '3'
+
+includes:
+  build:
+    taskfile: taskfiles/build.yml
+    optional: true
+  docker:
+    taskfile: taskfiles/docker.yml
+    optional: true
+  dev:
+    taskfile: taskfiles/development.yml
+    optional: true
+  python:
+    taskfile: taskfiles/python.yml
+    optional: true
+
+tasks:
+  default:
+    desc: Show available tasks
+    cmds:
+      - task --list
+
+  setup:
+    desc: Install prerequisites and verify environment
+    cmds:
+      - echo "Checking prerequisites..."
+      - command -v python >/dev/null 2>&1 && echo "  [OK] python" || echo "  [MISSING] python"
+      - command -v pip >/dev/null 2>&1 && echo "  [OK] pip" || echo "  [MISSING] pip"
+      - command -v docker >/dev/null 2>&1 && echo "  [OK] docker" || echo "  [MISSING] docker"
+      - command -v uv >/dev/null 2>&1 && echo "  [OK] uv" || echo "  [MISSING] uv (install with curl -LsSf https://astral.sh/uv/install.sh | sh)"
+      - echo ""
+      - echo "Installing Python dependencies..."
+      - pip install -r requirements.txt
+
+  help:
+    desc: Show detailed help for all tasks
+    silent: true
+    cmds:
+      - |
+        echo "ZakuroCache - Task Runner"
+        echo "========================="
+        echo ""
+        echo "Build tasks (task build:*):"
+        echo "  build:wheel         - Build wheel distribution with uv"
+        echo "  build:sdist         - Build source distribution with uv"
+        echo "  build:all           - Build wheel and source distribution"
+        echo "  build:clean         - Remove dist directory"
+        echo ""
+        echo "Docker tasks (task docker:*):"
+        echo "  docker:build        - Build the Docker image"
+        echo "  docker:run          - Run demo in Docker with caching"
+        echo "  docker:run-nocache  - Run demo in Docker without caching"
+        echo "  docker:benchmark    - Full benchmark (mirrors docker.sh)"
+        echo ""
+        echo "Development tasks (task dev:*):"
+        echo "  dev:install         - Install package locally"
+        echo "  dev:demo            - Run benchmark demo with caching"
+        echo "  dev:demo-nocache    - Run benchmark demo without caching"
+        echo "  dev:demo-compare    - Run both for comparison"
+        echo ""
+        echo "Python tasks (task python:*):"
+        echo "  python:build        - Build Python package"
+        echo "  python:install      - Install via setup.py"
+        echo "  python:install-dev  - Install in development mode"
+        echo "  python:deps         - Install dependencies"
+        echo "  python:clean        - Remove build artifacts"
+        echo ""
+        echo "Variables:"
+        echo "  NTERMS=N            - Number of Fibonacci terms (default: 35)"
+        echo "  DOCKER_IMAGE=name   - Docker image tag (default: zakuro/zakuro-cache)"
+        echo ""
+        echo "Examples:"
+        echo "  task docker:benchmark              # Run full Docker benchmark"
+        echo "  task dev:demo NTERMS=40            # Run demo with 40 terms"
+        echo "  task python:install-dev            # Install for development"

@@ -1,5 +1,6 @@
-from zakuro_cache.function import pure
 import argparse
+
+from zakuro_cache.function import pure
 
 
 @pure
@@ -20,13 +21,15 @@ def core(n, f):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Process some integers.')
-    parser.add_argument('--nterms', type=int, default=35)
-    parser.add_argument('--nocache', action='store_true')
+    parser = argparse.ArgumentParser(description="Process some integers.")
+    parser.add_argument("--nterms", type=int, default=35)
+    parser.add_argument("--nocache", action="store_true")
     args = parser.parse_args()
 
-
-    f, header = (_recur_fibo, "=====NO-CACHE=====") if args.nocache else (recur_fibo, "=====ZAKURO-CACHE=====")
+    f, header = (
+        (_recur_fibo, "=====NO-CACHE=====")
+        if args.nocache
+        else (recur_fibo, "=====ZAKURO-CACHE=====")
+    )
     print(f"\n\n{header}")
     [f(i) for i in range(args.nterms)]
-

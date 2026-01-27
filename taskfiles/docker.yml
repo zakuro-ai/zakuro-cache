@@ -1,7 +1,6 @@
 version: '3'
 
 vars:
-  DOCKER_IMAGE: zakuro/zakuro-cache
   NTERMS: 35
 
 tasks:
@@ -11,7 +10,7 @@ tasks:
       - sh: command -v docker
         msg: "docker is required but not installed"
     cmds:
-      - docker build . -t {{.DOCKER_IMAGE}}
+      - docker compose build
 
   run:
     desc: Run the demo inside Docker with caching enabled
@@ -21,7 +20,7 @@ tasks:
     deps:
       - build
     cmds:
-      - docker run --rm -it {{.DOCKER_IMAGE}} time python demo.py --nterms {{.NTERMS}}
+      - docker compose run --rm demo time python demo.py --nterms {{.NTERMS}}
 
   run-nocache:
     desc: Run the demo inside Docker with caching disabled
@@ -31,16 +30,16 @@ tasks:
     deps:
       - build
     cmds:
-      - docker run --rm -it {{.DOCKER_IMAGE}} time python demo.py --nocache --nterms {{.NTERMS}}
+      - docker compose run --rm demo-nocache time python demo.py --nocache --nterms {{.NTERMS}}
 
   benchmark:
-    desc: Run full benchmark comparing cached vs uncached execution (mirrors docker.sh)
+    desc: Run full benchmark comparing cached vs uncached execution
     aliases:
       - bench
     preconditions:
       - sh: command -v docker
         msg: "docker is required but not installed"
     cmds:
-      - docker build . -t {{.DOCKER_IMAGE}}
-      - docker run --rm -it {{.DOCKER_IMAGE}} time python demo.py
-      - docker run --rm -it {{.DOCKER_IMAGE}} time python demo.py --nocache
+      - docker compose build
+      - docker compose run --rm demo
+      - docker compose run --rm demo-nocache

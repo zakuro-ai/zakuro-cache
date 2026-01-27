@@ -45,7 +45,7 @@ At a granular level, ZakuroCache is a library that consists of the following com
 │   └── python.yml
 ├── pyproject.toml
 ├── demo.py
-├── docker.sh
+├── docker-compose.yml
 ├── imgs/
 │   └── zakuro.png
 └── zakuro_cache/
@@ -91,7 +91,7 @@ uv pip install -e .
 
 ### Docker
 ```bash
-docker build . -t zakuro/zakuro-cache
+docker compose build
 ```
 
 # Taskfile commands
@@ -119,9 +119,9 @@ This project uses [Task](https://taskfile.dev/) as a task runner. Install it and
 | `task dev:demo-compare` | Run both for comparison |
 | **Python** | |
 | `task python:build` | Build the Python package |
-| `task python:install` | Install via setup.py |
+| `task python:install` | Install via uv |
 | `task python:install-dev` | Install in development mode |
-| `task python:deps` | Install dependencies |
+| `task python:deps` | Install dependencies from pyproject.toml |
 | `task python:clean` | Remove build artifacts |
 
 # Environments
@@ -129,7 +129,6 @@ This project uses [Task](https://taskfile.dev/) as a task runner. Install it and
 | Variable | Default | Description |
 | --- | --- | --- |
 | `NTERMS` | `35` | Number of Fibonacci terms for the benchmark demo |
-| `DOCKER_IMAGE` | `zakuro/zakuro-cache` | Docker image tag |
 
 # Running the application
 

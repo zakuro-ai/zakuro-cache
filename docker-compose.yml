@@ -1,0 +1,10 @@
+services:
+  demo:
+    build: .
+    image: zakuro/zakuro-cache
+    command: time python demo.py
+
+  demo-nocache:
+    build: .
+    image: zakuro/zakuro-cache
+    command: time python demo.py --nocache

@@ -1,0 +1,38 @@
+version: '3'
+
+vars:
+  NTERMS: 35
+
+tasks:
+  install:
+    desc: Install the package locally via setup.py
+    preconditions:
+      - sh: command -v python
+        msg: "python is required but not installed"
+    cmds:
+      - python setup.py install
+
+  demo:
+    desc: Run the benchmark demo with caching enabled
+    preconditions:
+      - sh: command -v python
+        msg: "python is required but not installed"
+    cmds:
+      - python demo.py --nterms {{.NTERMS}}
+
+  demo-nocache:
+    desc: Run the benchmark demo with caching disabled
+    preconditions:
+      - sh: command -v python
+        msg: "python is required but not installed"
+    cmds:
+      - python demo.py --nocache --nterms {{.NTERMS}}
+
+  demo-compare:
+    desc: Run both cached and uncached demos for comparison
+    preconditions:
+      - sh: command -v python
+        msg: "python is required but not installed"
+    cmds:
+      - python demo.py --nterms {{.NTERMS}}
+      - python demo.py --nocache --nterms {{.NTERMS}}

@@ -1,3 +1,7 @@
+# Copyright (c) ZakuroAI. All rights reserved.
+# Licensed under the ZakuroAI License. See LICENSE for details.
+"""Demo script showcasing zakuro_cache with a recursive Fibonacci function."""
+
 import argparse
 
 from zakuro_cache.function import pure

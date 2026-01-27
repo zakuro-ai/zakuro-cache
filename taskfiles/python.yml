@@ -4,34 +4,34 @@ tasks:
   build:
     desc: Build the Python package
     preconditions:
-      - sh: command -v python
-        msg: "python is required but not installed"
+      - sh: command -v uv
+        msg: "uv is required but not installed"
     cmds:
-      - python setup.py sdist bdist_wheel
+      - uv build
 
   install:
-    desc: Install the package via setup.py
+    desc: Install the package via uv
     preconditions:
-      - sh: command -v python
-        msg: "python is required but not installed"
+      - sh: command -v uv
+        msg: "uv is required but not installed"
     cmds:
-      - python setup.py install
+      - uv pip install --system .
 
   install-dev:
     desc: Install the package in development mode
     preconditions:
-      - sh: command -v pip
-        msg: "pip is required but not installed"
+      - sh: command -v uv
+        msg: "uv is required but not installed"
     cmds:
-      - pip install -e .
+      - uv pip install --system -e .
 
   deps:
-    desc: Install Python dependencies from requirements.txt
+    desc: Install Python dependencies from pyproject.toml
     preconditions:
-      - sh: command -v pip
-        msg: "pip is required but not installed"
+      - sh: command -v uv
+        msg: "uv is required but not installed"
     cmds:
-      - pip install -r requirements.txt
+      - uv sync
 
   clean:
     desc: Remove Python build artifacts

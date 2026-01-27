@@ -30,7 +30,7 @@ tasks:
       - command -v uv >/dev/null 2>&1 && echo "  [OK] uv" || echo "  [MISSING] uv (install with curl -LsSf https://astral.sh/uv/install.sh | sh)"
       - echo ""
       - echo "Installing Python dependencies..."
-      - pip install -r requirements.txt
+      - uv sync
 
   help:
     desc: Show detailed help for all tasks
@@ -50,7 +50,7 @@ tasks:
         echo "  docker:build        - Build the Docker image"
         echo "  docker:run          - Run demo in Docker with caching"
         echo "  docker:run-nocache  - Run demo in Docker without caching"
-        echo "  docker:benchmark    - Full benchmark (mirrors docker.sh)"
+        echo "  docker:benchmark    - Full benchmark (cached vs uncached)"
         echo ""
         echo "Development tasks (task dev:*):"
         echo "  dev:install         - Install package locally"
@@ -60,14 +60,13 @@ tasks:
         echo ""
         echo "Python tasks (task python:*):"
         echo "  python:build        - Build Python package"
-        echo "  python:install      - Install via setup.py"
+        echo "  python:install      - Install via uv"
         echo "  python:install-dev  - Install in development mode"
         echo "  python:deps         - Install dependencies"
         echo "  python:clean        - Remove build artifacts"
         echo ""
         echo "Variables:"
         echo "  NTERMS=N            - Number of Fibonacci terms (default: 35)"
-        echo "  DOCKER_IMAGE=name   - Docker image tag (default: zakuro/zakuro-cache)"
         echo ""
         echo "Examples:"
         echo "  task docker:benchmark              # Run full Docker benchmark"

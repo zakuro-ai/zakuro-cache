@@ -34,7 +34,11 @@ dev = [
     "isort",
     "black",
     "nbstripout",
+    "pytest>=7.0",
 ]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
 
 [tool.isort]
 profile = "black"

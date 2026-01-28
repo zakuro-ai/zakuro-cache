@@ -8,3 +8,4 @@ WORKDIR /workspace
 
 RUN apt update && apt install time
 RUN uv pip install --system .
+RUN uv pip install --system pytest

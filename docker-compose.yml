@@ -8,3 +8,8 @@ services:
     build: .
     image: zakuro/zakuro-cache
     command: time python demo.py --nocache
+
+  test:
+    build: .
+    image: zakuro/zakuro-cache
+    command: python -m pytest tests/ -v

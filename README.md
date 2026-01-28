@@ -1,10 +1,9 @@
 <h1 align="center">
   <br>
-  <img src="imgs/zakuro.png">
+  <img src="https://avatars.githubusercontent.com/u/79005323?s=280&v=4">
 </h1>
 <p align="center">
   <a href="#modules">Modules</a> •
-  <a href="#code-structure">Code structure</a> •
   <a href="#code-design">Code design</a> •
   <a href="#installing-the-application">Installing the application</a> •
   <a href="#taskfile-commands">Taskfile commands</a> •
@@ -29,33 +28,6 @@ At a granular level, ZakuroCache is a library that consists of the following com
 | **zakuro_cache.loggers** | Captures stdout into an array during function execution. |
 | **zakuro_cache.function** | Pipeline to execute, cache, and retrieve results. |
 
-# Code structure
-
-```
-.
-├── .pre-commit-config.yaml
-├── Dockerfile
-├── README.md
-├── CHANGELOG.md
-├── Taskfile.yml
-├── taskfiles/
-│   ├── build.yml
-│   ├── development.yml
-│   ├── docker.yml
-│   └── python.yml
-├── pyproject.toml
-├── demo.py
-├── docker-compose.yml
-├── imgs/
-│   └── zakuro.png
-└── zakuro_cache/
-    ├── __init__.py
-    ├── zakuro_cache.py
-    ├── function/
-    │   └── __init__.py
-    └── loggers/
-        └── __init__.py
-```
 
 # Code design
 

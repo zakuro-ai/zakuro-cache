@@ -2,8 +2,24 @@ version: '3'
 
 vars:
   DIST_DIR: '{{.ROOT_DIR}}/dist'
+  INIT_FILE: '{{.ROOT_DIR}}/zakuro_cache/__init__.py'
 
 tasks:
+  stamp:
+    desc: Stamp __build__ in __init__.py with the current build date
+    internal: true
+    cmds:
+      - |
+        if grep -q '^__build__' {{.INIT_FILE}}; then
+          sed -i 's/^__build__ = .*/__build__ = "{{.BUILD_DATE}}"/' {{.INIT_FILE}}
+        else
+          sed -i '/__version__/a __build__ = "{{.BUILD_DATE}}"' {{.INIT_FILE}}
+        fi
+    vars:
+      BUILD_DATE:
+        sh: TZ=Asia/Tokyo date +%Y-%m-%dT%H:%M:%S%z
+
+
   wheel:
     desc: Build wheel distribution with uv
     preconditions:
@@ -12,7 +28,9 @@ tasks:
       - sh: test -f pyproject.toml
         msg: "pyproject.toml not found. Run /pygrade to migrate your setup.py first."
     cmds:
-      - mkdir -p {{.DIST_DIR}}
+      - task: stamp
+      - mkdir -p {{.DIST_DIR}}/legacy
+      - cmd: mv {{.DIST_DIR}}/*.whl {{.DIST_DIR}}/legacy/ 2>/dev/null || true
       - uv build --wheel --out-dir {{.DIST_DIR}}
 
   sdist:
@@ -23,6 +41,7 @@ tasks:
       - sh: test -f pyproject.toml
         msg: "pyproject.toml not found. Run /pygrade to migrate your setup.py first."
     cmds:
+      - task: stamp
       - mkdir -p {{.DIST_DIR}}
       - uv build --sdist --out-dir {{.DIST_DIR}}
 

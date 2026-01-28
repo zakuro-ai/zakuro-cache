@@ -1,0 +1,13 @@
+version: '3'
+
+tasks:
+  unit:
+    desc: Run unit tests locally with pytest
+    cmds:
+      - python -m pytest tests/ -v
+
+  docker:
+    desc: Run unit tests inside Docker
+    cmds:
+      - docker compose build
+      - docker compose run --rm test

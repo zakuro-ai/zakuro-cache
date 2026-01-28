@@ -1,0 +1,55 @@
+version: '3'
+
+vars:
+  DIST_DIR: '{{.ROOT_DIR}}/dist'
+  PYPI_TOKEN: '{{.PYPI_TOKEN | default ""}}'
+
+tasks:
+  version-check:
+    desc: Fail if the current version already exists on PyPI
+    vars:
+      INIT_FILE: '{{.ROOT_DIR}}/zakuro_cache/__init__.py'
+      PKG_NAME: zakuro_cache
+    cmds:
+      - |
+        VERSION=$(grep -oP '__version__\s*=\s*"\K[^"]+' {{.INIT_FILE}})
+        if [ -z "$VERSION" ]; then
+          echo "ERROR: __version__ not found in {{.INIT_FILE}}"
+          exit 1
+        fi
+        echo "Local version: $VERSION"
+        HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "https://pypi.org/pypi/{{.PKG_NAME}}/json")
+        if [ "$HTTP_CODE" = "404" ]; then
+          echo "Package not yet on PyPI — skipping duplicate check."
+          exit 0
+        fi
+        EXISTING=$(curl -s "https://pypi.org/pypi/{{.PKG_NAME}}/json" | python3 -c "import json,sys; print('\n'.join(json.load(sys.stdin).get('releases',{}).keys()))")
+        if echo "$EXISTING" | grep -qx "$VERSION"; then
+          echo "ERROR: Version $VERSION already exists on PyPI. Bump the version before publishing."
+          exit 1
+        fi
+        echo "Version $VERSION is not yet published — OK."
+
+  check:
+    desc: Verify distribution files before upload
+    preconditions:
+      - sh: command -v uv
+        msg: "uv is required but not installed. Install with: curl -LsSf https://astral.sh/uv/install.sh | sh"
+      - sh: ls {{.DIST_DIR}}/*.whl 2>/dev/null
+        msg: "No wheel found in {{.DIST_DIR}}. Run 'task build:all' first."
+    cmds:
+      - uvx twine check {{.DIST_DIR}}/*.whl
+
+  publish:
+    desc: Build and publish package to PyPI
+    silent: true
+    preconditions:
+      - sh: command -v uv
+        msg: "uv is required but not installed. Install with: curl -LsSf https://astral.sh/uv/install.sh | sh"
+      - sh: '[ -n "{{.PYPI_TOKEN}}" ]'
+        msg: "PYPI_TOKEN is required. Usage: PYPI_TOKEN=pypi-xxx task deploy:publish"
+    cmds:
+      - task build:clean
+      - task build:wheel
+      - task deploy:check
+      - uvx twine upload --username __token__ --password {{.PYPI_TOKEN}} {{.DIST_DIR}}/*.whl

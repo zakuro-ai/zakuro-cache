@@ -13,6 +13,12 @@ includes:
   python:
     taskfile: taskfiles/python.yml
     optional: true
+  deploy:
+    taskfile: taskfiles/deploy.yml
+    optional: true
+  test:
+    taskfile: taskfiles/test.yml
+    optional: true
 
 tasks:
   default:
@@ -65,6 +71,15 @@ tasks:
         echo "  python:deps         - Install dependencies"
         echo "  python:clean        - Remove build artifacts"
         echo ""
+        echo "Test tasks (task test:*):"
+        echo "  test:unit            - Run unit tests locally with pytest"
+        echo "  test:docker          - Run unit tests inside Docker"
+        echo ""
+        echo "Deploy tasks (task deploy:*):"
+        echo "  deploy:version-check - Fail if current version already exists on PyPI"
+        echo "  deploy:publish       - Build and publish package to PyPI"
+        echo "  deploy:check         - Verify distribution files before upload"
+        echo ""
         echo "Variables:"
         echo "  NTERMS=N            - Number of Fibonacci terms (default: 35)"
         echo ""
@@ -72,3 +87,4 @@ tasks:
         echo "  task docker:benchmark              # Run full Docker benchmark"
         echo "  task dev:demo NTERMS=40            # Run demo with 40 terms"
         echo "  task python:install-dev            # Install for development"
+        echo "  task deploy:publish                # Build and publish to PyPI"

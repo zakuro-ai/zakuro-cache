@@ -45,6 +45,13 @@ tasks:
         print('no')
         ")
         if [ "$ALREADY_PUBLISHED" = "yes" ]; then
+          # CI on master pushes sets SKIP_IF_PUBLISHED=1: a commit that does not
+          # bump the version is not an error there, it just has nothing to publish.
+          if [ "${SKIP_IF_PUBLISHED:-0}" = "1" ]; then
+            echo "Version $VERSION is already on PyPI — nothing to publish."
+            [ -n "${GITHUB_OUTPUT:-}" ] && echo "published=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           echo "ERROR: Version $VERSION (normalizes per PEP 440) already exists on PyPI. Bump the version before publishing."
           exit 1
         fi
